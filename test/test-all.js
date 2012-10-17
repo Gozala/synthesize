@@ -27,14 +27,15 @@ exports["test basic"] = function(assert) {
 }
 
 
-exports["test further compoundment"] = function(assert) {
+exports["test compound functions are compoundable"] = function(assert) {
   var t1 = (compound)
     (method("toUpperCase"))
     (method("replace"), "A", "X")
 
   assert.equal(t1("a b c d"), "X B C D", "compound function works")
 
-  var t2 = (t1)
+  var t2 = (compound)
+    (t1)
     (method("split"), " ")
     (attribute, 0)
 
