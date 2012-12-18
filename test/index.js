@@ -4,7 +4,7 @@
 
 "use strict";
 
-var compound = require("../compound")
+var synthesize = require("../core")
 
 var slicer = Array.prototype.slice
 
@@ -19,32 +19,32 @@ function attribute(object, name) {
 }
 
 exports["test basic"] = function(assert) {
-  var t1 = (compound)
+  var t1 = (synthesize)
     (method("toUpperCase"))
     (method("replace"), "A", "X")
 
-  assert.equal(t1("a b c d"), "X B C D", "compound function works")
+  assert.equal(t1("a b c d"), "X B C D", "synthesize function works")
 }
 
 
-exports["test compound functions are compoundable"] = function(assert) {
-  var t1 = (compound)
+exports["test synthesize functions are compositeable"] = function(assert) {
+  var t1 = (synthesize)
     (method("toUpperCase"))
     (method("replace"), "A", "X")
 
-  assert.equal(t1("a b c d"), "X B C D", "compound function works")
+  assert.equal(t1("a b c d"), "X B C D", "synthesize function works")
 
-  var t2 = (compound)
+  var t2 = (synthesize)
     (t1)
     (method("split"), " ")
     (attribute, 0)
 
-  assert.equal(t2("a b c d"), "X", "compound function can be further compound")
-  assert.equal(t1("a b"), "X B", "first compound function is not changed")
+  assert.equal(t2("a b c d"), "X", "synthesize function can be further synthesize")
+  assert.equal(t1("a b"), "X B", "first synthesize function is not changed")
 }
 
-exports["test data bound compound fn"] = function(assert) {
-  var t1 = (compound)
+exports["test data bound synthesize fn"] = function(assert) {
+  var t1 = (synthesize)
     ("a b c d")
     (method("toUpperCase"))
     (method("replace"), "A", "X")

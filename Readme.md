@@ -1,8 +1,8 @@
-# compound
+# synthesize
 
-[![Build Status](https://secure.travis-ci.org/Gozala/compound.png)](http://travis-ci.org/Gozala/compound)
+[![Build Status](https://secure.travis-ci.org/Gozala/synthesize.png)](http://travis-ci.org/Gozala/synthesize)
 
-This is small function chaining library that allows one to make compound units
+This is small function chaining library that allows one to synthesize units
 of computation. Unlike very popular method chaining, this feels and behaves
 differently!
 
@@ -45,9 +45,9 @@ function pick() {
   return Object.create(Object.getPrototypeOf(source), whitelist)
 }
 
-var compound = require("compound")
+var synthesize = require("synthesize")
 
-var hash = (compound)
+var hash = (synthesize)
  (merge, { x: 12, y: 13 })
  (pick, 'a', 'b', 'x')
  ({ a: 1, b: 2, c: 3, d: 4 })
@@ -56,12 +56,12 @@ var hash = (compound)
 ### Lazy
 
 Another key difference is that intermidiate values are not computed during
-chaining, instead chaining creates compound functions that can be invoked
+chaining, instead chaining creates synthesize functions that can be invoked
 to perform all the chained computations.
 
 
 ```js
-var t = (compound)
+var t = (synthesize)
   (merge, { x: 12, y: 13 })
   (pick, 'a', 'b', 'x')
 
@@ -72,7 +72,7 @@ t({ a: 1, b: 2, c: 3, d: 4 }) // => { x: 12, a: 1, b: 2 }
 ### composable
 
 Since result of chaining is just an ordinary function, they can be further
-compounded, or used in any other kind of functional composition.
+synthesizeed, or used in any other kind of functional composition.
 
 
 ```js
@@ -82,13 +82,13 @@ function method(name) {
   }
 }
 
-var t1 = (compound)
+var t1 = (synthesize)
   (method("toUpperCase"))
   (method("replace"), "A", "X")
 
 t1("a b c")     // => "X B C"
 
-var t2 = (compound)
+var t2 = (synthesize)
   (t1)
   (method("split"), " ")
   (method("join"), "-")
@@ -98,4 +98,4 @@ t2("a b c")     // => "X-B-C"
 
 ## Install
 
-    npm install compound
+    npm install synthesize

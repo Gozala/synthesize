@@ -5,12 +5,12 @@
 "use strict";
 
 // Utility function is used internally in order to ignore first argument
-// on data bound compound functions.
+// on data bound synthesize functions.
 function second(_, value) { return value }
 
 function compile(tasks) {
   /**
-  Function takes set of tasks and compiles them into compound function, that
+  Function takes set of tasks and compiles them into synthesize function, that
   executes each task and passes result to the next one as a first argument.
   **/
   return function compute(result) {
@@ -34,21 +34,21 @@ function compile(tasks) {
   }
 }
 
-function compound(lambda) {
+function synthesize(lambda) {
   /**
-  Chains operations into compound function by queueing tasks and curring
+  Chains operations into synthesize function by queueing tasks and curring
   provided arguments, until invoked with a non-function first argument. In
-  that case queued tasks are compiled to a compound function that can be
+  that case queued tasks are compiled to a synthesize function that can be
   used to perform chained operations. Note that compilation will prevent
-  any further chaining, although compound results can be used in a different
+  any further chaining, although synthesize results can be used in a different
   compositions.
   **/
 
-  // This is a placeholder for compiled compound function.
+  // This is a placeholder for compiled synthesize function.
   var composite = void(0)
   // Tasks are queued into `tasks` array. Every odd element is a function
   // followed by even element of curried arguments for it. If first argument
-  // is not a function, then we create compound function with bound initial
+  // is not a function, then we create synthesize function with bound initial
   // value. Utility function `second` is used so that bound value will be
   // returned regardless of the passed arguments to a compiled function.
   var tasks = typeof(lambda) === "function" ? [lambda, arguments]
@@ -72,4 +72,4 @@ function compound(lambda) {
   }
 }
 
-module.exports = compound
+module.exports = synthesize
