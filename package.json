@@ -14,7 +14,7 @@
   "bugs": {
     "url": "http://github.com/Gozala/compound/issues/"
   },
-  "main": "./compound.js",
+  "main": "./core.js",
   "devDependencies": {
     "test": ">=0.4.4",
     "repl-utils": ">=1.0.0"
